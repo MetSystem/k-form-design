@@ -394,7 +394,9 @@
             small: record.options.small,
             bordered: record.options.bordered
           }"
-          :style="record.options.customStyle"
+          :style="
+            'width:' + record.options.width + ';' + record.options.customStyle
+          "
         >
           <tr v-for="(trItem, trIndex) in record.trs" :key="trIndex">
             <td
@@ -421,7 +423,12 @@
                 @start="$emit('dragStart', $event, tdItem.list)"
                 @add="$emit('handleColAdd', $event, tdItem.list)"
               >
-                <transition-group tag="div" name="list" class="list-main">
+                <transition-group
+                  tag="div"
+                  name="list"
+                  :style="{ 'min-height': tdItem.rowspan * 80 - 19 + 'px' }"
+                  class="list-main"
+                >
                   <layoutItem
                     class="drag-move"
                     v-for="item in tdItem.list"
